@@ -1,8 +1,11 @@
 from textwrap import dedent
-from crewai import agent
+from crewai import Agent
+
+from tools import ExaSearchToolset
+
 
 class MeetingPrepAgents():
-    def research_agent(seld):
+    def research_agent(self):
         return Agent(
             role="research Specialist",
             goal='Conduct through research on people and companies involved in the meeting',
@@ -30,10 +33,19 @@ class MeetingPrepAgents():
         return Agent(
             role='Meeting Strategy Advisor',
             goal='Develop talking points, question, and strategic angles for the meeting',
-            #tools=ExaSearchTool.tools(),
             backstory=dedent("""\
                 As a Strategy Advisor, your expertise will guide the development of
                 talking points, insightful questions, and strategic angles
                 to ensure the meeting's objective are achieved."""),
+            verbose=True
+        )
+
+    def summary_and_briefing_agent(self):
+        return Agent(
+            role='Summary and Briefing Coordinator',
+            goal='Compile all the research findings, industry analysis, and strategic talking points into a concise, comprehensive briefing document for the meeting',
+            backstory=dedent("""\
+                As a Summary and Briefing Coordinator, your report will include sections for
+                participant bios, industry overview, talking points, and strategic recommendations."""),
             verbose=True
         )
